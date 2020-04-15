@@ -14,34 +14,13 @@ pub type Event {
 pub type AdjacentCells =
   List(Cell)
 
-// The Game of Life rules:
-// https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#Rules
-
-  // case cell, living {
-  //   _cell, 2 -> Live
-  //   _cell, 3 -> Live
-  //   Alive, living if 2 > living -> Die
-  //   Alive, living if living > 3 -> Die 
-  //   _, _ -> Nothing
-  // }
 fn rules(living: Int, cell: Cell) -> Event {
   case cell, living {
     _cell, 2 -> Live
     _cell, 3 -> Live
-    cell, living -> 
-      case cell == Alive && 2 > living {
-        True -> 
-          Die
-
-        False -> 
-          case cell == Alive && living > 3 {
-            True -> 
-              Die 
-
-            False -> 
-              Nothing
-          }
-      }
+    cell, 0 | 1 -> Die 
+    cell, 4 | 5 | 6 | 7 |8 -> Die
+    _, _ -> Nothing
   }
 }
 
